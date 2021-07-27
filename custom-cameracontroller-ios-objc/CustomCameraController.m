@@ -72,8 +72,8 @@
     } else if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusNotDetermined) {
         dispatch_suspend(_sessionQueue);
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-            _hasCameraPermission = granted;
-            dispatch_resume(_sessionQueue);
+            self->_hasCameraPermission = granted;
+            dispatch_resume(self->_sessionQueue);
         }];
 
     } else if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio] == AVAuthorizationStatusDenied) {
@@ -87,8 +87,8 @@
     } else if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio] == AVAuthorizationStatusNotDetermined) {
         dispatch_suspend(_sessionQueue);
         [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-            _hasMicrophonePermission = granted;
-            dispatch_resume(_sessionQueue);
+            self->_hasMicrophonePermission = granted;
+            dispatch_resume(self->_sessionQueue);
         }];
 
     } else if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio] == AVAuthorizationStatusDenied) {
