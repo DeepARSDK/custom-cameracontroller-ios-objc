@@ -13,7 +13,7 @@
 @interface ViewController () <DeepARDelegate>
 
 @property (nonatomic, strong) DeepAR* deepar;
-@property (nonatomic, strong) ARView* arview;
+@property (nonatomic, strong) UIView* arview;
 @property (nonatomic, strong) CustomCameraController* cameraController;
 
 @property (nonatomic, strong) NSMutableArray* masks;
@@ -51,13 +51,14 @@
     self.currentFilterIndex = 0;
     self.torchOn = NO;
     
-    // Instantiate ARView and add it to view hierarchy.
+    // Instantiate DeepAR and UIView and add it to view hierarchy.
     self.deepar = [[DeepAR alloc] init];
 
     [self.arview setLicenseKey:@"your_license_key_goes_here"];
     [self.deepar initialize];
     self.deepar.delegate = self;
-    self.arview = (ARView*)[self.deepar createARViewWithFrame:[UIScreen mainScreen].bounds];
+    [self.deepar initialize];
+    self.arview = (UIView*)[self.deepar createARViewWithFrame:[UIScreen mainScreen].bounds];
 
     [self.view insertSubview:self.arview atIndex:0];
     self.cameraController = [[CustomCameraController alloc] init];
@@ -90,8 +91,6 @@
 
     self.effects = [NSMutableArray array];
     [self.filters addObject:@"none"];
-    [self.effects addObject:[[NSBundle mainBundle]  pathForResource:@"fire" ofType:@""]];
-    [self.effects addObject:[[NSBundle mainBundle]  pathForResource:@"heart" ofType:@""]];
     [self.effects addObject:[[NSBundle mainBundle]  pathForResource:@"blizzard" ofType:@""]];
     [self.effects addObject:[[NSBundle mainBundle]  pathForResource:@"rain" ofType:@""]];
 

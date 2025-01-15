@@ -1,5 +1,4 @@
 #import "CustomCameraController.h"
-#import <DeepAR/ARView.h>
 
 @interface CustomCameraController () <AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate> {
     AVCaptureSession* _captureSession;
@@ -362,21 +361,13 @@
 
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    if (!self.deepAR && !self.arview) {
+    if (!self.deepAR) {
         return;
     }
-    if (self.deepAR) {
-        if (connection == _videoConnection) {
-            [self.deepAR enqueueCameraFrame:sampleBuffer mirror:_mirrorCamera];
-        } else {
-            [self.deepAR enqueueAudioSample:sampleBuffer];
-        }
-    } else if (self.arview) {
-        if (connection == _videoConnection) {
-            [self.arview enqueueCameraFrame:sampleBuffer mirror:_mirrorCamera];
-        } else {
-            [self.arview enqueueAudioSample:sampleBuffer];
-        }
+    if (connection == _videoConnection) {
+        [self.deepAR enqueueCameraFrame:sampleBuffer mirror:_mirrorCamera];
+    } else {
+        [self.deepAR enqueueAudioSample:sampleBuffer];
     }
 }
 

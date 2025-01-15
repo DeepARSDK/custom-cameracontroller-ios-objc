@@ -9,11 +9,10 @@
 #import <DeepAR/DeepAR.h>
 
 
-@class ARView;
 
 /**
  * @brief Helper class that wraps <a href="https://developer.apple.com/documentation/avfoundation?language=objc">AVFoundation</a> to handle camera-related logic like starting camera preview, choosing resolution, front or back camera, and video orientation.
- * @details @link CustomCameraController @endlink works with both @link DeepAR @endlink and @link ARView @endlink implementations, just make sure to set one or the other as a property on @link CustomCameraController @endlink instance. Check Github <a href="https://github.com/DeepARSDK/quickstart-ios-objc">example</a> for detailed usage example.
+ * @details @link CustomCameraController @endlink works with DeepAR @endlink, just make sure to set it as a property on @link CustomCameraController @endlink instance. Check Github <a href="https://github.com/DeepARSDK/quickstart-ios-objc">example</a> for detailed usage example.
  */
 @interface CustomCameraController : NSObject
 
@@ -22,13 +21,6 @@
  * @details Must be set manually if using @link DeepAR @endlink. See @link init @endlink for more details.
  */
 @property (nonatomic, weak) DeepAR* deepAR;
-
-/**
- * @brief The @link ARView @endlink instance.
- * @details Must be set manually if using @link ARView @endlink. See @link init @endlink for more details.
- * @deprecated This API is deprecated. Please assign the @link DeepAR @endlink instance on <i>deepAR</i> property instead.
- */
-@property (nonatomic, weak) ARView* arview;
 
 /**
  * @brief The currently selected camera.
@@ -56,9 +48,6 @@
  * ...
  * self.cameraController = [[CustomCameraController alloc] init];
  * self.cameraController.deepAR = self.deepAR;
- * // or if using ARView
- * // self.cameraController.arview = self.arview;
- * [self.cameraController startCamera]; 
  * ...
  * @endcode
  */
@@ -76,7 +65,7 @@
 
 /**
  * @brief Starts camera preview using <a href="https://developer.apple.com/documentation/avfoundation?language=objc">AVFoundation</a>.
- * @details Checks camera permissions and asks if none has been given. If DeepAR started in rendering mode will render camera frames to the @link ARView @endlink.
+ * @details Checks camera permissions and asks if none has been given.
  */
 - (void)startCamera;
 
